@@ -15,17 +15,18 @@
   <div class="friends">
     <form class="form-inline searchForm" role="form">
       <div class="form-group">
-        <input class="form-control" placeholder="Search Anything About Your Friends">
+        <input class="form-control" placeholder="Search Name" ng-model="filters.name">
+        <input class="form-control" placeholder="Search State" ng-model="filters.state">
 
-        <select class="input-medium">
-          <option>Name</option>
-          <option>#Friends</option>
-          <option>City</option>
-          <option>State</option>
-          <option>Country</option>
+        <select class="input-medium" ng-model="sorts.property">
+          <option value="name">Name</option>
+          <option value="friend_count">#Friends</option>
+          <option value="location.city">City</option>
+          <option value="location.state">State</option>
+          <option value="location.country">Country</option>
         </select>
 
-        <select class="input-medium">
+        <select class="input-medium" ng-model="sorts.direction">
           <option value="-">Descending</option>
           <option value="+">Ascending</option>
         </select>
@@ -33,22 +34,11 @@
     </form>
 
     <ul>
-      <li class='friend'>
-        <img class="profile-pic" src='http://placebear.com/50/50.jpg'>
-        <h3>Cali Fornia</h3>
-        <div class="location">
-          Location: New Port Beach, California, United States
-        </div>
-        <div class="status">
-          Status: I hate the snow. I wish I was on the beach right now!!!
-        </div>
-        <div class="num-friends">
-          Friends: 0
-        </div>
-      </li>
-      <li class="friend" ng-repeat="friend in friends">
+
+      <li class="friend" ng-repeat="friend in friends | filter:{ name: filters.name, location: {state: filters.state}} | orderBy: sorts.direction + sorts.property">
+        <img class="profile-pic" ng-src="{{friend.pic_square}}" />
         <h3> {{friend.name}}</h3>
-        <img class="profile-pic" src="{{friend.pic-square}}" />
+
         <div class="location">
           Location: {{ friend.location.city }}, {{friend.location.state}}, {{friend.location.country}}
         </div>

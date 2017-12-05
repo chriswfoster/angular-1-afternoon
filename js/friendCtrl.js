@@ -1,6 +1,14 @@
-angular.modules("myApp").controller("friendCtrl", function($scope) {
+angular.module("myApp").controller("friendCtrl", function($scope) {
   $scope.friends = friendz
-  $scope.searchTerm = ""
+$scope.filters = {
+    name: "",
+    state: ""
+}
+$scope.sorts = {
+    property: "name",
+    direction: "+"
+}
+
 })
 
 var friendz = [
